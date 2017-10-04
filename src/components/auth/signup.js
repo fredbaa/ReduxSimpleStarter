@@ -3,8 +3,18 @@ import { reduxForm } from 'redux-form';
 import * as actions from '../../actions';
 
 class Signup extends Component {
-  handleFormSubmit({ email, password, confirmPassword }) {
-    console.log(email, password, confirmPassword);
+  handleFormSubmit(values) {
+    this.props.signupUser(values);
+  }
+
+  renderAlert() {
+    if (this.props.errorMessage) {
+      return (
+        <div className="alert alert-danger">
+          <strong>Ooops! </strong> {this.props.errorMessage}
+        </div>
+      );
+    }
   }
 
   render() {
@@ -26,6 +36,7 @@ class Signup extends Component {
           <label>Confirm Password:</label>
           <input type="password" {...confirmPassword} className="form-control" />
         </fieldset>
+        {this.renderAlert()}
         <button action="submit" className="btn btn-primary">Sign up</button>
       </form>
     );
